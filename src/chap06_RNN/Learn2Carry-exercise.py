@@ -87,10 +87,10 @@ def prepare_batch(Nums1, Nums2, results, maxlen):
         Nums2: shape(batch_size, maxlen)
         results: shape(batch_size, maxlen)
     '''
-     # 将整数转换为数字位列表
-    Nums1 = [convertNum2Digits(o) for o in Nums1]
-    Nums2 = [convertNum2Digits(o) for o in Nums2]
-    results = [convertNum2Digits(o) for o in results]
+    # 使用函数处理三个列表
+    Nums1 = process_numbers(Nums1, maxlen)
+    Nums2 = process_numbers(Nums2, maxlen) 
+    results = process_numbers(results, maxlen)
     # 反转数字位列表，使低位在前，高位在后
     # 这有助于RNN学习进位机制，因为低位的计算影响高位
     Nums1 = [list(reversed(o)) for o in Nums1]

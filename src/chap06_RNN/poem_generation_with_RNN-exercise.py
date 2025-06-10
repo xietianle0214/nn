@@ -178,8 +178,8 @@ class myRNNModel(keras.Model):
 # In[3]:
 
 
-def mkMask(input_tensor, maxLen):
-    """创建掩码，用于处理变长序列
+def mkMask(input_tensor: tf.Tensor, maxLen: int) -> tf.Tensor:
+    """创建变长序列的布尔掩码（优化形状处理版）
     
     Args:
         input_tensor: 包含序列长度的张量
@@ -188,9 +188,9 @@ def mkMask(input_tensor, maxLen):
     Returns:
         与input_tensor形状相同的布尔掩码
     """
-    # 获取输入张量的形状
-    shape_of_input = tf.shape(input_tensor) 
-    shape_of_output = tf.concat(axis=0, values=[shape_of_input, [maxLen]])
+      # 直接展平并生成掩码，避免多余的concat操作
+    flat_lengths = tf.reshape(input_tensor, [-1])  # 更清晰的命名
+    flat_mask = tf.sequence_mask(flat_lengths, maxlen=maxLen)
     #使用tf.reshape将input_tensor展平为一维张量oneDtensor。shape=(-1,)表示将张量展平为一维，长度由输入张量的总元素数决定
     oneDtensor = tf.reshape(input_tensor, shape=(-1,))
     #使用tf.sequence_mask函数生成一个掩码张量flat_mask
