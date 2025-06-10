@@ -65,7 +65,11 @@ class CNN(nn.Module):
         self.conv2 = nn.Sequential(
             nn.Conv2d(32, 64, kernel_size=3,  padding=1, bias=False),  # 移除冗余参数
             nn.BatchNorm2d(64),                                     # 添加批量归一化
+<<<<<<< HEAD
             nn.ReLU(inplace=True),  # 节省20%显存
+=======
+            nn.ReLU(),                                              # ReLU激活函数
+>>>>>>> f60d17f158e4ad11ddd0e6fc02817e833113c6f2
             nn.Conv2d(64, 64, kernel_size=3, stride=1, padding=1),  # 增加一层3x3卷积
             nn.BatchNorm2d(64),
             nn.ReLU(),
