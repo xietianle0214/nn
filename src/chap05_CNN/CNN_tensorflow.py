@@ -124,6 +124,7 @@ def max_pool_2x2(x: tf.Tensor,
     data_format: str = 'NHWC'
 ) -> tf.Tensor:
     # 验证参数合法性
+    strides = strides or pool_size  # 默认步长等于池化窗口大小
     if padding not in ['SAME', 'VALID']:
         raise ValueError(f"padding must be 'SAME' or 'VALID', got {padding}.")
     if data_format not in ['NHWC', 'NCHW']:
