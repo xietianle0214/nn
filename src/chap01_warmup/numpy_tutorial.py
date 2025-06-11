@@ -207,17 +207,17 @@ def plot_quadratic():
 print("\n第二十四题：绘制二次函数")
 
 x = np.arange(0, 100, 0.1)  # 生成从 0 到 99.9 的数组，步长为 0.1，共 1000 个点 （注：np.arange() 遵循的是左闭右开原则）
-y = x * x  # 计算每个 x 对应的 y=x^2 的值
+y = x * x  # 计算二次函数值：y = x的平方
 
 plt.figure(figsize=(10, 6))  # 创建一个宽 10 英寸、高 6 英寸的图像窗口
 plt.plot(x, y, label="y = x^2", color="blue")  # 绘制蓝色曲线，并设置图例标签为 y = x^2
 
 # 添加标题和标签
 plt.title("Plot of y = x^2")  # 图像标题
-plt.xlabel("x")  # x 轴标签
-plt.ylabel("y")  # y 轴标签
+plt.xlabel("x")  # 添加x 轴标签
+plt.ylabel("y")  # 添加y 轴标签
 
-# 显示半透明网格线
+# 显示网格线
 plt.grid(True, alpha=0.5)
 
 # 在右上角显示图例
