@@ -140,17 +140,23 @@ class RBM:
         """从训练好的模型中采样生成新数据（Gibbs采样）"""
         # 初始化可见层：使用伯努利分布随机生成二值向量（每个像素有50%概率为1）
         # n_observe是可见层神经元数量（28x28=784）
+        # - 0.5表示初始激活概率（相当于随机噪声图像）
+        # - self.n_observe对应MNIST图像的展平维度（784=28×28）
         v = np.random.binomial(1, 0.5, self.n_observe)
 
         # 进行1000次 Gibbs采样迭代，以逐步趋近真实数据分布，使生成的样本更接近训练数据的分布
         for _ in xrange(1000):
             # 基于当前的可见层v，计算隐藏层神经元被激活的概率（前向传播）
+            # self._sigmoid确保概率值在(0,1)区间
+            # np.dot(v, self.W) + self.b_h 计算隐藏层的加权输入
             h_prob = self._sigmoid(np.dot(v, self.W) + self.b_h)
 
             # 根据激活概率采样得到隐藏层的状态（伯努利采样）
+            # 使用伯努利采样决定每个神经元是否激活
             h_sample = self._sample_binary(h_prob)
 
             # 基于隐藏层的采样结果，重新估算可见层的激活概率（反向传播）
+            # self.b_v是可见层的偏置项
             v_prob = self._sigmoid(np.dot(h_sample, self.W.T) + self.b_v)
 
             # 根据估算的概率采样新的可见层状态
