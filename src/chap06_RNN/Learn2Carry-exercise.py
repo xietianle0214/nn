@@ -201,7 +201,9 @@ def evaluate(model):
     logits = model(tf.constant(Nums1, dtype=tf.int32), tf.constant(Nums2, dtype=tf.int32))
     logits = logits.numpy() # 将模型输出的tensor转换为numpy数组，便于后续处理
     pred = np.argmax(logits, axis=-1) # 预测数位列表
-    res = results_converter(pred)
+    res = results_converter(pred)    # 将模型预测结果转换为可比较的格式
+    
+# 打印前20个样本的真实标签、预测标签及比较结果
     for o in list(zip(datas[2], res))[:20]:
         print(o[0], o[1], o[0]==o[1])
 

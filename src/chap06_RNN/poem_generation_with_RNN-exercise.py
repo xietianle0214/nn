@@ -332,9 +332,9 @@ def train(epoch, model, optimizer, ds):
         
     Returns:
         最后一个批次的损失值
-    """
+    """ # 初始化损失值和准确率（虽然准确率未实际使用）
     loss = 0.0
-    accuracy = 0.0
+    accuracy = 0.0      # 注意：这个变量声明了但未使用
     # 遍历数据集
     for step, (x, y, seqlen) in enumerate(ds):
         # 训练一步
