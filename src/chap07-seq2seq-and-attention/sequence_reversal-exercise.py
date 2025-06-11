@@ -208,20 +208,20 @@ def compute_loss(logits, labels):
     return losses
   
 # 定义了一个使用TensorFlow的@tf.function装饰器的函数train_one_step，用于执行一个训练步骤
-@tf.function  # 将函数编译为TensorFlow计算图，提升性能
+@tf.function  # 将Python函数转换为TensorFlow静态计算图，显著提升训练速度（尤其在GPU上）
 def train_one_step(model, optimizer, enc_x, dec_x, y):
     """执行一次训练步骤（前向传播+反向传播）"""
     # 自动记录梯度
     with tf.GradientTape() as tape:
-        # 前向传播获取预测值
+        # 前向传播获取预测值 enc_x -> 编码器输入，dec_x -> 解码器输入
         logits = model(enc_x, dec_x)
-        # 计算预测值与标签的损失
+        # 计算预测值与标签的损失   logits: 模型原始输出，y: 真实标签
         loss = compute_loss(logits, y)
 
-    # 计算梯度（自动微分）
+    # 计算梯度（自动微分）  tape自动追踪所有可训练变量的操作
     grads = tape.gradient(loss, model.trainable_variables)
     
-    # 应用梯度更新模型参数
+    # 应用梯度更新模型参数  zip将梯度与变量一一对应，执行如: w = w - lr*grad
     optimizer.apply_gradients(zip(grads, model.trainable_variables))
 
     # 返回当前步骤的损失值
