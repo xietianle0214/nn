@@ -8,10 +8,10 @@
 
 # In[1]:
 
-
-import numpy as np
-import tensorflow as tf
-import collections
+# 导入必要的Python库和模块
+import numpy as np     # 数值计算库，提供高效的数组操作和数学函数
+import tensorflow as tf    # 谷歌开发的深度学习框架
+import collections        # Python标准库，提供有用的容器数据类型
 from tensorflow import keras
 from tensorflow.keras import layers
 from tensorflow.keras import layers, optimizers, datasets

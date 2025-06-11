@@ -7,10 +7,10 @@
 # In[1]:
 # 导入了多个用于构建和训练深度学习模型的Python库和模块
 import numpy as np# 导入NumPy库，用于高性能科学计算和多维数组处理 常用功能：数组操作、数学函数、线性代数等
-import tensorflow as tf
-import collections
-from tensorflow import keras
-from tensorflow.keras import layers
+import tensorflow as tf       # 导入TensorFlow深度学习框架  提供：自动微分、GPU加速、分布式训练等功能
+import collections            # Python标准库  导入collections容器数据类型库
+from tensorflow import keras  # Keras高层API  导入Keras高层神经网络API
+from tensorflow.keras import layers   # 神经网络组件  导入神经网络层实现
 from tensorflow.keras import layers, optimizers, datasets
 
 # 定义特殊标记：开始标记和结束标记
