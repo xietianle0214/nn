@@ -125,6 +125,8 @@ class GaussianMixtureModel:
         self.log_likelihoods = []         #存储每轮迭代的对数似然值
 
         # 初始化随机数生成器
+        # 使用NumPy的随机数生成器，保证实验可复现性
+        # random_state参数控制随机种子，确保每次运行结果一致
         self.rng = np.random.default_rng(random_state)
 
     def fit(self, X):
@@ -140,12 +142,17 @@ class GaussianMixtureModel:
         n_samples, n_features = X.shape
         
         # 初始化混合系数（均匀分布）
+        # 每个高斯成分的初始权重相等，总和为1
         self.pi = np.ones(self.n_components) / self.n_components
         
         # 随机选择样本点作为初始均值
+        # 从数据集中随机选取n_components个样本作为初始聚类中心
+        # replace=False确保不重复选择相同样本
         self.mu = X[np.random.choice(n_samples, self.n_components, replace=False)]
         
         # 初始化协方差矩阵为单位矩阵
+        # 为每个高斯成分创建n_features×n_features的单位矩阵
+        # 单位矩阵作为协方差矩阵的初始值，表示各特征间初始独立且方差为1
         self.sigma = np.array([np.eye(n_features) for _ in range(self.n_components)])
 
         log_likelihood = -np.inf  # 初始化对数似然值为负无穷
