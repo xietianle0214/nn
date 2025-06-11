@@ -90,13 +90,17 @@ class RL_QG_agent: # 定义了一个名为 RL_QG_agent 的类
            :return: 选择的落子位置索引，范围为 0-63
            """
         # 状态预处理
+        # 将原始状态(8,8,3)转换为神经网络输入的4D张量格式(1,8,8,3)
+        # 其中1表示batch_size维度，8x8是棋盘尺寸，3是通道数(黑棋/白棋/空位)
         state_input = np.array(state).reshape(1, 8, 8, 3).astype(np.float32)  # 转换为(1,64)形状
         
         # 前向传播获取Q值
+         # 使用当前神经网络计算所有可能动作的Q值
+         # feed_dict将预处理后的状态输入到TensorFlow计算图中
         q_vals = self.sess.run(self.q_values, feed_dict = {self.input_states: state_input})
         
         # 过滤合法动作并选择最优
-        
+        # enables数组标记哪些动作在当前状态下是合法的(1=合法，0=非法)
         legal_q = q_vals[0][enables]  # 从 Q 值矩阵中提取当前状态下的合法动作的 Q 值
         if np.sum(legal_q) == 0:  # 所有合法动作Q值都为 0 的特殊情况处理
             return np.random.choice(np.where(enables)[0])   # 随机选择一个合法动作

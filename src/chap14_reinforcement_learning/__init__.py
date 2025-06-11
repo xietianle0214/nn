@@ -34,19 +34,22 @@ register(
     max_episode_steps = 200,
     reward_threshold = 25.0,
 )
-# 重复输入检测任务：识别重复出现的输入元素
+# 注册重复输入环境
+# 该环境要求智能体能够识别并复制输入序列
 register(
     id = 'DuplicatedInput-v0',  # 环境唯一标识符
     entry_point = 'gym.envs.algorithmic:DuplicatedInputEnv',  # 环境类的导入路径
     max_episode_steps = 200,
     reward_threshold = 9.0,# 相对较低的阈值
 )
-# 序列反转任务：将输入序列完全反转输出
+# 注册序列反转环境
+# 该环境要求智能体能够将输入序列完全反转输出
 register(
-    id = 'Reverse-v0',
-    entry_point = 'gym.envs.algorithmic:ReverseEnv',
-    max_episode_steps = 200,
-    reward_threshold = 25.0,
+    id = 'Reverse-v0',   # 环境的唯一ID标识符
+
+    entry_point = 'gym.envs.algorithmic:ReverseEnv',  # 环境类的导入路径（模块:类）
+    max_episode_steps = 200,    # 每个episode的最大步数限制
+    reward_threshold = 25.0,    # 认为任务完成所需的奖励阈值
 )
 
 # Classic Control Environments - 经典控制环境

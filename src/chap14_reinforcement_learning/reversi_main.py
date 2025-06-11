@@ -85,11 +85,11 @@ for i_episode in range(max_epochs):
             # 打印游戏结束信息（总步数 = t+1，因为索引从0开始）
             print(f"第 {i_episode+1} 局游戏在 {t+1} 步后结束")
             
-            # 计算黑棋得分（棋盘上黑棋的数量）
+            # 计算黑棋得分（通过统计棋盘上值为1的位置数量）
             black_score = len(np.where(env.state[0, :, :] == 1)[0])
             total_tiles = env.board_size ** 2  # 棋盘总格子数（8x8=64）
             
-            # 判断游戏结果
+            # 判断游戏结果（基于双方棋子数量比较）
             if black_score > total_tiles / 2:  # 黑棋数量超过一半
                 print("黑棋获胜！")
             elif black_score < total_tiles / 2:  # 白棋数量超过一半
@@ -97,11 +97,12 @@ for i_episode in range(max_epochs):
             else:  # 双方棋子数量相等
                 print("平局！")
             
-            # 打印详细得分
+            # 打印详细得分（白棋数量=总格子数-黑棋数量）
             white_score = total_tiles - black_score
             print(f"比分: 黑棋 {black_score} - 白棋 {white_score}")
             
             break  # 结束当前游戏，开始下一局
+
          # 关闭环境（资源清理）
          env.close()
-         print("训练完成！共进行了 {max_epochs} 局游戏")
+         print(f"训练完成！共进行了 {max_epochs} 局游戏") # 注意：修正了f-string语法
