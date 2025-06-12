@@ -28,13 +28,13 @@ def compute_accuracy(v_xs, v_ys):
         result: 模型的准确率。
     """
     global prediction
-    # 获取模型预测结果
+    # 获取模型预测结果（前向传播计算）
     y_pre = sess.run(prediction, feed_dict={xs: v_xs, keep_prob: 1})
-    # 比较预测与真实标签
+    # 比较预测与真实标签（计算正确预测的布尔值矩阵）
     correct_prediction = tf.equal(tf.argmax(y_pre, 1), tf.argmax(v_ys, 1))
-    # 计算准确率
+    # 计算准确率（将布尔值转换为浮点数后求均值）
     accuracy = tf.reduce_mean(tf.cast(correct_prediction, tf.float32))
-    # 运行准确率计算
+    # 运行准确率计算（实际执行计算图）
     result = sess.run(accuracy, feed_dict={xs: v_xs, ys: v_ys, keep_prob: 1})
     return result
 

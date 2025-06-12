@@ -2,14 +2,14 @@
 # coding: utf-8
 
 # 导入必要的库
-import os
-import torch
-import torch.nn as nn
-import torch.utils.data as Data
+import os         # 操作系统接口模块，用于文件和目录操作
+import torch# PyTorch深度学习框架的核心库
+import torch.nn as nn# PyTorch的神经网络模块，包含各种层和损失函数
+import torch.utils.data as Data  # PyTorch的数据处理工具，用于数据加载和批处理
 import torchvision               # 包含常用的数据集和模型
 import torch.nn.functional as F  # 包含常用的函数式API，如ReLU, softmax等
-import numpy as np
-from torch.autograd import Variable
+import numpy as np               # 数值计算库，用于高效的多维数组操作
+from torch.autograd import Variable  # PyTorch的自动微分模块，用于计算梯度
 
 # 设置超参数
 learning_rate = 1e-4  #  学习率
